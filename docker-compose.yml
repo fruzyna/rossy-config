@@ -8,11 +8,11 @@ services:
     container_name: jellyfin
     user: 1000:1000
     environment:
-      - JELLYFIN_PublishedServerUrl=http://192.168.16.11:8096
+      - JELLYFIN_PublishedServerUrl=http://stream.fruzyna.net
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - /wrigley/data/jellyfin:/config
-      - /wrigley/data/jellyfin-cache:/cache
+      - /weeghman/gpu-config/jellyfin:/config
+      - /dev/shm/jellyfin-cache:/cache
       - /weeghman/media/music:/media/music
       - /weeghman/media/movies:/media/movies
       - /weeghman/media/tv:/media/tv
@@ -38,7 +38,7 @@ services:
       - WHISPER_MODEL=medium-int8
       - WHISPER_BEAM=5
     volumes:
-      - /wrigley/data/whisper:/config
+      - /weeghman/gpu-config/whisper:/config
     ports:
       - 10300:10300
     deploy:
