@@ -12,20 +12,13 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - /weeghman/gpu-config/jellyfin:/config
-      - /dev/shm/jellyfin-cache:/cache
+      - /weeghman/gpu-databases/jellyfin-cache:/cache
       - /weeghman/media/music:/media/music
       - /weeghman/media/movies:/media/movies
       - /weeghman/media/tv:/media/tv
     ports:
       - 8096:8096
       - 7359:7359/udp
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
     restart: unless-stopped
 
   whisper:
@@ -49,3 +42,15 @@ services:
               count: 1
               capabilities: [gpu]
     restart: unless-stopped
+
+  immichframe:
+    image: ghcr.io/immichframe/immichframe
+    container_name: immichframe
+    environment:
+      - TZ=Americas/Chicago
+    volumes:
+      - /weeghman/gpu-config/immich-frame:/app/Config
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+
